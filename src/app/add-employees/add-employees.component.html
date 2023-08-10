@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="border: 1px solid red;">
+        <div class="container column1" style="height: 1000px; width: 25%; background-color: gray; color: white;margin: 1px; text-align: center;">
+         
+          <h3 style="margin-top: 100px;">Navigations</h3>
+
+          <div class="row">
+            <a routerLink="/Employees" style="text-decoration: none;">Employees</a> <br>
+            <a routerLink="/EmployeesList" style="text-decoration: none;">EmployeesList</a>
+          </div>
+
+          <div class="col">
+             <div class="list-group" *ngFor="let emp of empList">
+                <div  style="background-color: black; color: white;" class="list-group-item">
+                    <pre>
+                        Name: {{ emp.Name}} Id: {{emp.Id}} Email: {{emp.Email}} Date of Birth: {{emp.DOB}}  Gender: {{emp.Gender}} 
+                    </pre>
+                    
+                </div>
+             </div>
+          </div>
+          
+        </div>  
+
+        <div class="container column2" style="height: 1000px; width: 74%; background-color: gray; float: left; color: white; text-align: center;">
+            <h4>AddEmployees</h4><br><br>
+            <form class="container" style="margin-left: 150px;" [formGroup]="employeeDetails" (ngSubmit)="ShowEmpDetails()">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="Name" >Enter Employee Name</label>
+                    <input type="text" class="form-control" formControlName="Name" minlength="5" maxlength="30">
+                    <span class="help-block" style="font-size: 13px; float: left;color: red;" 
+                    *ngIf="!employeeDetails.get('Name').valid && employeeDetails.get('Name').touched ">Please Enter  Name</span>
+                </div>
+                <div class="col-md-4">
+                    <label for="Id" >Enter Employee Id</label>
+                    <input type="number" min="1"  class="form-control" formControlName="Id">
+                    <span class="help-block" style="font-size: 13px; float: left; color: red;" 
+                    *ngIf="!employeeDetails.get('Id').valid && employeeDetails.get('Id').touched ">Please Enter  Id</span>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="Email" >Enter Email</label>
+                    <input type="email" class="form-control" formControlName="Email" >
+                    <span class="help-block" style="font-size: 13px; float: left;color: red;" 
+                    *ngIf="!employeeDetails.get('Email').valid && employeeDetails.get('Email').touched ">Please Enter Valid Email</span>
+                </div>
+                <div class="col-md-4">
+                    <label for="DOB" >Enter Date Of Birth</label>
+                    <input type="date" class="form-control" formControlName="DOB">
+                    <span class="help-block" style="font-size: 13px; float: left; color: red;" 
+                    *ngIf="!employeeDetails.get('DOB').valid && employeeDetails.get('DOB').touched ">Please Select  Date</span>
+                </div>
+            </div><br><br>
+
+            <div style="float: left;" class="radio">
+                <p>Select Gender</p>
+                <div class="clo"  *ngFor ="let gen of gender">
+                    <label for="Gender" style="float:left;">
+                        <input type="radio"   [value]="gen" formControlName="Gender">{{gen}}
+                    </label><br>
+                </div> 
+            </div>
+                
+                
+
+        </form><br><br><br><br><br>
+        <div class="row" style="float: center;">
+            <div class="col" style="margin-left: 10px;">
+                <button type="button container-fluid" class="btn btn-danger" (click)="formReset()"  style="margin: 10px;">Clear</button>
+                <button type="button container-fluid" class="btn btn-primary" (click)="ShowEmpDetails()" [disabled]="!employeeDetails.valid">Submit</button>
+            </div>
+        </div>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
