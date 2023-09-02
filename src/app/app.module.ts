@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { employeesDetails } from './services/EmployeesList.service';
+import { FormsModule } from '@angular/forms';
 
 const Routers:Routes =[
   {path:"", redirectTo:"/Employees", pathMatch:'full'},
@@ -21,7 +22,7 @@ const Routers:Routes =[
     EmployeesListComponent
   ],
   imports: [RouterModule.forRoot(Routers),
-    BrowserModule,ReactiveFormsModule
+    BrowserModule,ReactiveFormsModule,FormsModule
   ],
   providers: [employeesDetails],
   bootstrap: [AppComponent]

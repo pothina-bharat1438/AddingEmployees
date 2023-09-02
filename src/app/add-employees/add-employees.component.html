@@ -17,7 +17,17 @@
           <div class="row">
             <a routerLink="/Employees" style="text-decoration: none;">Employees</a> <br>
             <a routerLink="/EmployeesList" style="text-decoration: none;">EmployeesList</a>
+          </div> <br><br><br>
+          <div class="row">
+            <div class="col">
+                <h5>Select Required FORM</h5>
+            </div>
           </div>
+          <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" (click) = "switchToTemplate()" [ngStyle] = "{backgroundColor: switchToTemplateDriven ? 'red' : 'green'}">{{switchToTemplateDriven? "Reactive Form" :"Template Driven Form"}} </button>
+            </div>
+          </div> <br><br><br>
 
           <div class="col">
              <div class="list-group" *ngFor="let emp of empList">
@@ -31,9 +41,9 @@
           </div>
           
         </div>  
-
-        <div class="container column2" style="height: 1000px; width: 74%; background-color: gray; float: left; color: white; text-align: center;">
-            <h4>AddEmployees</h4><br><br>
+        
+        <div *ngIf= "!switchToTemplateDriven" class="container column2" style="height: 1000px; width: 74%; background-color: gray; float: left; color: white; text-align: center;">
+            <h4>AddEmployees (Reactive Form)</h4><br><br>
             <form class="container" style="margin-left: 150px;" [formGroup]="employeeDetails" (ngSubmit)="ShowEmpDetails()">
             <div class="row">
                 <div class="col-md-4">
@@ -81,6 +91,60 @@
             <div class="col" style="margin-left: 10px;">
                 <button type="button container-fluid" class="btn btn-danger" (click)="formReset()"  style="margin: 10px;">Clear</button>
                 <button type="button container-fluid" class="btn btn-primary" (click)="ShowEmpDetails()" [disabled]="!employeeDetails.valid">Submit</button>
+            </div>
+        </div>
+            
+            
+        </div>
+        <div *ngIf= "switchToTemplateDriven" class="container column2" style="height: 1000px; width: 74%; background-color: gray; float: left; color: white; text-align: center;">
+            <h4>AddEmployees  (Template driven)</h4><br><br>
+            <form class="container" style="margin-left: 150px;" #EmpForm="ngForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="Name" >Enter Employee Name</label>
+                    <input type="text" class="form-control" name="Name" ngModel minlength="5"  required maxlength="30" #name="ngModel">
+                    <span class="help-block" style="font-size: 13px; float: left;color: red;" 
+                    *ngIf="!name.valid && name.touched">Please Enter  Name</span>
+                </div>
+                <div class="col-md-4">
+                    <label for="Id" >Enter Employee Id</label>
+                    <input type="number" min="1"  class="form-control" required  ngModel name="Id" #ID="ngModel">
+                    <span class="help-block" style="font-size: 13px; float: left; color: red;" 
+                    *ngIf="!ID.valid && ID.touched">Please Enter  Id</span>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="Email" >Enter Email</label>
+                    <input type="email" class="form-control" ngModel  required name="Email"  #Email="ngModel">
+                    <span class="help-block" style="font-size: 13px; float: left;color: red;" 
+                    *ngIf="!Email.valid && Email.touched">Please Enter Valid Email</span>
+                </div>
+                <div class="col-md-4">
+                    <label for="DOB" >Enter Date Of Birth</label>
+                    <input type="date" class="form-control"  ngModel required  name="DOB" #DOB="ngModel">
+                    <span class="help-block" style="font-size: 13px; float: left; color: red;" 
+                    *ngIf="!DOB.valid && DOB.touched">Please Select  Date</span>
+                </div>
+            </div><br><br>
+
+            <div style="float: left;" class="radio">
+                <p>Select Gender</p>
+                <div class="col"  *ngFor ="let gen of gender">
+                    <label for="Gender" style="float:left;">
+                        <input type="radio"   [value]="gen" [ngModel]="defaultGender"  name="Gender">{{gen}}
+                    </label><br>
+                </div> 
+            </div>
+                
+                
+
+        </form><br><br><br><br><br>
+        <div class="row" style="float: center;">
+            <div class="col" style="margin-left: 10px;">
+                <button type="button container-fluid" class="btn btn-danger" (click)="formReset()"  style="margin: 10px;">Clear</button>
+                <button type="button container-fluid" class="btn btn-primary" (click)="ShowEmpDetails()" [disabled]="!EmpForm.valid">Submit</button>
             </div>
         </div>
             
